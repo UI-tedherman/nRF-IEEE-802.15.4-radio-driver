@@ -752,6 +752,9 @@ void nrf_raal_uninit(void)
     m_timeslot_state = TIMESLOT_STATE_IDLE;
 
     nrf_802154_pin_clr(PIN_DBG_TIMESLOT_ACTIVE);
+
+    // Ted Herman hack
+    m_initialized = false;
 }
 
 void nrf_raal_continuous_mode_enter(void)

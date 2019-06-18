@@ -81,7 +81,10 @@ void nrf_802154_hp_timer_init(void)
 
 void nrf_802154_hp_timer_deinit(void)
 {
+    // Ted Herman hack
+#if !RAAL_SOFTDEVICE && !RAAL_SIMULATOR
     nrf_timer_task_trigger(TIMER, NRF_TIMER_TASK_SHUTDOWN);
+#endif  
 }
 
 void nrf_802154_hp_timer_start(void)

@@ -65,12 +65,17 @@ static void clock_handler(nrf_drv_clock_evt_type_t event)
 
 void nrf_802154_clock_init(void)
 {
+    // Ted Herman hack
+#ifdef NO_802154_HACK
     nrf_drv_clock_init();
+#endif
 }
 
 void nrf_802154_clock_deinit(void)
 {
+#ifdef NO_802154_HACK
     nrf_drv_clock_uninit();
+#endif
 }
 
 void nrf_802154_clock_hfclk_start(void)

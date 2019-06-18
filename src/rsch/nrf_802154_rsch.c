@@ -181,7 +181,10 @@ static inline void all_prec_update(void)
 
             if (new_prio == RSCH_PRIO_IDLE)
             {
+		// Ted Herman hack
+#ifdef NO_802154_HACK
                 nrf_802154_priority_drop_hfclk_stop();
+#endif
                 prec_approved_prio_set(RSCH_PREC_HFCLK, RSCH_PRIO_IDLE);
 
                 nrf_raal_continuous_mode_exit();
@@ -189,8 +192,11 @@ static inline void all_prec_update(void)
             }
             else
             {
+		// Ted Herman hack
+#ifdef NO_802154_HACK
                 nrf_802154_priority_drop_hfclk_stop_terminate();
                 nrf_802154_clock_hfclk_start();
+#endif
                 nrf_raal_continuous_mode_enter();
             }
         }
@@ -462,7 +468,10 @@ void nrf_raal_timeslot_started(void)
 {
     nrf_802154_log(EVENT_TRACE_ENTER, FUNCTION_RSCH_TIMESLOT_STARTED);
 
+    // Ted Herman hack
+#ifndef NO_802154_HACK
     prec_approved_prio_set(RSCH_PREC_RAAL, RSCH_PRIO_MAX);
+#endif
     notify_core();
 
     nrf_802154_log(EVENT_TRACE_EXIT, FUNCTION_RSCH_TIMESLOT_STARTED);
